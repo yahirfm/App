@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Videos con Buscador</title>
+  <style>
+    #videoList {
+      list-style: none;
+      padding: 0;
+    }
+
+    .video-item {
+      margin-bottom: 10px;
+    }
+
+    #searchInput {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <input type="text" id="searchInput" placeholder="Buscar videos" oninput="filterVideos()">
+
+  <ul id="videoList"></ul>
+
+  <script>
+    const videos = [
+      { title: "Video 1" },
+      { title: "Video 2" },
+      { title: "Video 3" },
+      // Agrega más elementos al arreglo según sea necesario
+    ];
+
+    function renderVideoList() {
+      const videoList = document.getElementById('videoList');
+      videoList.innerHTML = '';
+
+      videos.forEach(video => {
+        const li = document.createElement('li');
+        li.className = 'video-item';
+        li.dataset.title = video.title;
+        li.textContent = video.title;
+        videoList.appendChild(li);
+      });
+    }
+
+    function filterVideos() {
+      const searchInput = document.getElementById('searchInput');
+      const filter = searchInput.value.toLowerCase();
+      const videoList = document.getElementById('videoList');
+      const videoItems = videoList.getElementsByClassName('video-item');
+
+      for (let i = 0; i < videoItems.length; i++) {
+        const title = videoItems[i].dataset.title.toLowerCase();
+        if (title.includes(filter)) {
+          videoItems[i].style.display = '';
+        } else {
+          videoItems[i].style.display = 'none';
+        }
+      }
+    }
+
+    // Renderiza la lista inicial
+    renderVideoList();
+  </script>
+
+</body>
+</html>
